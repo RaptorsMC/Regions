@@ -1,0 +1,10 @@
+name: RegionAPI
+main: RegionAPI\Loader 
+api: [3.0.0]
+author: Bavfalcon9
+version: 1.0.0
+description: A command api wrapper for RaptorsMC
+permissions:
+  RegionsAPI:
+    default: op
+    description: Modify and build on / with regions.

@@ -1,0 +1,13 @@
+# What is the name of the plugin?
+name: RegionAPI
+# What kind of plugin is this? [generic, api, library, gamemode]
+type: api
+# What core version to use?
+version: [ 1.0.0 ]
+loading: 
+ # Loading query string [none, <query>]
+ query: null
+ # If the core version does not support the plugin version, should it be forced to load? [yes/no/true/false]
+ force: false
+ # What should the loading priority be? 0 is lowest [number]
+ priority: 10
