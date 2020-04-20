@@ -98,7 +98,6 @@ class Region {
             "place" => false, 
             "sleep" => false,
             "tnt" => false,
-            "tntDamage" => false,
             "fire" => false,
             "trample" => false, 
             "pickupItems" => false, 
@@ -110,7 +109,9 @@ class Region {
             "updateSkin" => true,
             "seeSelf" => true,
             "seeOthers" => true,
-            "wheatTick" => false
+            "decay" => false,
+            "flow" => false,
+            "blockUpdates" => false
         ];
     }
 
@@ -136,6 +137,30 @@ class Region {
         $this->created = $this->json->getCache()['created'] ?? time();
         $this->modified = $this->json->getCache()['modified'] ?? time();
         $this->options = $this->json->getCache()['options'] ?? [];
+        $this->updateDefaultFlags();
+    }
+
+    /**
+     * Updates a regions flags if it is out of date.
+     * @return void
+     */
+    public function updateDefaultFlags(): void {
+        $defaults = self::getDefaultFlags();
+        $defaultFlags = array_keys($defaults);
+
+        // Stage one, apply new flags
+        foreach ($defaults as $flagName=>$value) {
+            if (!isset($this->flags[$flagName])) {
+                $this->flags[$flagName] = $value;
+            }
+        }
+
+        // Stage two, remove old flags
+        foreach ($this->flags as $flagName=>$value) {
+            if (!in_array($flagName, $defaultFlags)) {
+                unset($this->flags[$flagName]);
+            }
+        }
     }
 
     /**
@@ -191,6 +216,22 @@ class Region {
      */
     public function getFlag(string $flag): ?bool {
         return $this->flags[$flag];
+    }
+
+    /**
+     * Gets position 1
+     * @return Vector3
+     */
+    public function getPos1(): ?Vector3 {
+        return $this->pos1;
+    }
+
+    /**
+     * Gets position 2
+     * @return Vector3
+     */
+    public function getPos2(): ?Vector3 {
+        return $this->pos2;
     }
 
     /**

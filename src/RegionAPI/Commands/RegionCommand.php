@@ -13,6 +13,7 @@
  */
 namespace RegionAPI\Commands;
 
+use pocketmine\level\Position;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use RegionAPI\Utils\Session;
@@ -30,7 +31,7 @@ class RegionCommand extends Command {
         parent::__construct('region');
         $this->plugin = $loader;
         $this->description = "";
-        $this->usageMessage = "/region <create/edit/remove> <name> [flags]";
+        $this->usageMessage = "/region <create/edit/remove/tp> <name> [flags]";
         $this->setPermission('RegionsAPI');
     }
 
@@ -124,6 +125,22 @@ class RegionCommand extends Command {
                     return true;
                 } else {
                     $sender->sendMessage('§c§lError: §r§cForm UI soon.');
+                    return true;
+                }
+            } else if ($args[0] === "tp") {
+                $regionName = $args[1];
+
+                if (RegionManager::getRegion($regionName) === null) {
+                    $sender->sendMessage('§c§lError: §r§cRegion name does not exist.');
+                    return true;
+                } else {
+                    // TO DO: Prompt confirmation.
+                    $region = RegionManager::getRegion($regionName);
+                    $pos1 = $region->getPos1();
+                    $pos2 = $region->getPos2();
+                    $center = new Position(($pos1->getX() + $pos2->getX()) / 2, ($pos1->getY() + $pos2->getY()) / 2, ($pos1->getZ() + $pos2->getZ()) / 2, $region->getWorld());
+                    $sender->teleport($center);
+                    $sender->sendMessage('§aTeleported to Region "'. $regionName . '" successfully.');
                     return true;
                 }
             } else if ($args[0] === 'remove') {

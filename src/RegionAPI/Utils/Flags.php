@@ -85,7 +85,6 @@ class Flags {
             "place", 
             "sleep",
             "tnt",
-            "tntDamage",
             "fire",
             "trample", 
             "pickupItems", 
@@ -97,7 +96,9 @@ class Flags {
             "updateSkin",
             "seeSelf",
             "seeOthers",
-            "wheatTick"
+            "decay",
+            "flow",
+            "blockUpdates"
         ];
     }
 
@@ -107,12 +108,11 @@ class Flags {
             "break" => [ "br" ],
             "use" => [ "interact" ],
             "consume" => [ "eat" ],
-            "pvp" => [ "attack", "hit", "h" ],
+            "pvp" => [ "attack", "hit" ],
             "health" => [ "regen", "natrualregen" ],
             "invincible" => [ "god", "superman" ],
             "sleep" => [ "rest" ],
-            "tnt" => [ "ignite", "ign" ],
-            "tntDamage" => [ "explode", "explosions" ],
+            "tnt" => [ "explode", "explosions" ],
             "fire" => [ "burn" ],
             "trample" => [ "ruinCrops" ],
             "pickupItems" => [ "pickup" ],
@@ -124,7 +124,9 @@ class Flags {
             "updateSkin" => [ "changeSkin", "skin" ],
             "seeSelf" => [ "invis" ],
             "seeOthers" => [ "seeplayers", "hide", "hideplayers" ],
-            "wheatTick" => []
+            "decay" => [],
+            "flow" => [ "liquids", "spread" ],
+            "blockUpdates" => []
         ];
         return $possibilities;
     }
